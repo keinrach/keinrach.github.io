@@ -93,7 +93,7 @@ defaults:
 # 7. Site settings
 encoding: utf-8 # Make sure the encoding is right
 lang: en-GB # Set the site language
-title: "BokChoy Investing" # Site name or title, also used in jekyll-seo-tag
+title: "BokChoy Invest" # Site name or title, also used in jekyll-seo-tag
 logo: "/Logo_new.svg" # Site logo, also used in jekyll-seo-tag
 description: "Feel free to share with me your thoughts on my articles, ideas on my next topic, and career opportunities you think I'd love!" # Site description and default description, also used in jekyll-seo-tag
 url: "" # Site url, also used in jekyll-seo-tag

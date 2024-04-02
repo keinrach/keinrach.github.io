@@ -3,7 +3,7 @@ title: Buy or Rent? A Framework to do this Calculation
 categories:
 - Real Estate
 excerpt: |
-  There are many popular online buy or rent calculators such as the [New York Times calculator](https://www.nytimes.com/interactive/2014/upshot/buy-rent-calculator.html) to help us think through before making one of the biggest financial decisions. I want to write this post to go beyond the binary “buy or rent” decision and explain the numbers behind the “equivalent rent” we see. 
+  According to my framework, buying a 1b1b apartment can cost you $20k more per year in NYC in the current macro environment. Here is why:  
 feature_text: |
   ## Buy or Rent? 
   A quantitative framework to do the calculation most tailored to your financial situation
