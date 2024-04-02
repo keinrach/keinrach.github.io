@@ -1,4 +1,10 @@
-<figure class="figure  figure--{{ include.position | default: 'center' }}">
-  <img class="image" src="{{ include.image }}" alt="{{ include.alt | default: include.caption }}" {{ include.width ? include.width | prepend: 'width="' | append: '"' }} {{ include.height ? include.height | prepend: 'height="' | append: '"' }}>
+<figure class="figure figure--{{ include.position | default: 'center' }}">
+  {% if include.href %}
+  <a href="{{ include.href }}" target="_blank">
+  {% endif %}
+      <img class="image" src="{{ include.image }}" alt="{{ include.alt | default: include.caption }}" {{ include.width ? include.width | prepend: 'width="' | append: '"' }} {{ include.height ? include.height | prepend: 'height="' | append: '"' }}>
+  {% if include.href %}
+  </a>
+  {% endif %}
   {% if include.caption %}<figcaption class="caption">{{ include.caption }}</figcaption>{% endif %}
 </figure>

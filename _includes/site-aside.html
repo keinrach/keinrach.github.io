@@ -7,9 +7,16 @@
 
   {% elsif page.layout == "page" or page.layout == "home" or page.layout == "blog" %}
     <section class="section  section--description">
-      <h3>About this site</h3>
+      <h4>Contact the Author</h4>
+      <br>
+      {% include figure.html image="/assets/my_portrait.png" width="150" height="150" %}
       <p>{{ site.description }}</p>
-      {% include nav-social.html %}
+      {% include nav-social.html %} 
+      {% include button.html text="Buy Me A ☕️" link="https://www.buymeacoffee.com" %}
+      <br>
+      <h6>Compose Your Messages Below</h6>
+      <br>
+      {% include site-form.html %}
     </section>
 
   {% elsif page.layout == "categories" %}
