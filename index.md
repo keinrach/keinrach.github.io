@@ -1,8 +1,8 @@
 ---
 title: Latest Articles
 feature_text: |
-  ## Welcome to My Site BokChoy Investing!
-  Where I share my research and thoughts on investment 
+  ## Welcome to BokChoy Invest!
+  Where I share my research and thoughts on personal and practical financial questions 
 feature_image: "https://picsum.photos/1300/400?image=873"
 excerpt: "You can find my latest articles below"
 ---
