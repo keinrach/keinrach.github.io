@@ -2,8 +2,8 @@
 title: Latest Articles
 feature_text: |
   ## Welcome to BokChoy Invest!
-  Where I share my research and thoughts on personal and practical financial questions 
-feature_image: "https://picsum.photos/1300/400?image=873"
+  ###### A place for sharing thoughts on personal and practical financial questions 
+feature_image: /assets/background.png
 excerpt: "You can find my latest articles below"
 ---
 <br>

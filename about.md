@@ -1,13 +1,13 @@
 ---
 title: My Background
 feature_text: |
-  ## Welcome to My Site BokChoy Investing!
-  Where I share my research and thoughts on investment 
-feature_image: "https://picsum.photos/2560/600?image=873"
+  ## Welcome to BokChoy Invest!
+  ###### A place for sharing thoughts on personal and practical financial questions 
+feature_image: /assets/background.png
 excerpt: "Welcome to Rachel's Site"
 aside: true
 ---
-Having studied quantitative economics and worked on the trading floor of one of the bulge brakets, I enjoy thinking about questions about investment and the financial market. 
+Having studied quantitative economics and worked on the trading floor of one of the bulge brakets, I enjoy thinking about questions related to investment and the financial market. 
 
 While I am trying my best to have educated and informed views on those big questions (keywords: the Fed, inflation, emerging market, etc), I am most interested in personal and practical questions closely related to individuals' financial experiences.   
 
