@@ -1,0 +1,27 @@
+<!-- Options Implied Volatility Calculator -->
+
+<h3>Options Implied Volatility Calculator</h3>
+
+<form id="ivCalculator">
+    <label for="optionPrice">Option Price:</label><br>
+    <input type="number" id="optionPrice" name="optionPrice"><br>
+
+    <label for="strikePrice">Strike Price:</label><br>
+    <input type="number" id="strikePrice" name="strikePrice"><br>
+
+    <label for="underlyingPrice">Underlying Asset Price:</label><br>
+    <input type="number" id="underlyingPrice" name="underlyingPrice"><br>
+
+    <label for="expirationDate">Expiration Date:</label><br>
+    <input type="date" id="expirationDate" name="expirationDate"><br>
+
+    <label for="riskFreeRate">Risk-Free Rate (annualized):</label><br>
+    <input type="number" id="riskFreeRate" name="riskFreeRate" step="any"><br>
+
+    <input type="button" value="Calculate IV" onclick="calculateIV()">
+</form>
+
+<p id="result"></p>
+
+<!-- Include your JavaScript at the end of the body where this file is included -->
+
