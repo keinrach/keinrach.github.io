@@ -15,7 +15,9 @@ function calculateTimeToExpiration() {
 
 function calculateIV() {
     // Get values from form
+    var optionType = document.getElementById('optionType').value;
     var optionPrice = parseFloat(document.getElementById('optionPrice').value);
+    
     var strikePrice = parseFloat(document.getElementById('strikePrice').value);
     var underlyingPrice = parseFloat(document.getElementById('underlyingPrice').value);
     const timeToExpiration = calculateTimeToExpiration();
@@ -31,7 +33,10 @@ function calculateIV() {
     // Newton-Raphson Iteration
     while (Math.abs(sigma - sigmaPrev) > tolerance && iteration < maxIterations) {
         sigmaPrev = sigma;
-        sigma = sigma - (priceCallBlackScholes(underlyingPrice, strikePrice, riskFreeRate, timeToExpiration, sigma) - optionPrice) / vega(underlyingPrice, strikePrice, riskFreeRate, timeToExpiration, sigma);
+        var blackScholesPrice = (optionType === "call") 
+            ? priceCallBlackScholes(underlyingPrice, strikePrice, riskFreeRate, timeToExpiration, sigma)
+            : pricePutBlackScholes(underlyingPrice, strikePrice, riskFreeRate, timeToExpiration, sigma);
+        sigma = sigma - (blackScholesPrice - optionPrice) / vega(underlyingPrice, strikePrice, riskFreeRate, timeToExpiration, sigma);
         iteration++;
     }
 
@@ -49,6 +54,13 @@ function priceCallBlackScholes(S, K, r, T, sigma) {
     var d2 = d1 - sigma * Math.sqrt(T);
 
     return S * normCdf(d1) - K * Math.exp(-r * T) * normCdf(d2);
+}
+
+function pricePutBlackScholes(S, K, r, T, sigma) {
+    var d1 = (Math.log(S / K) + (r + sigma * sigma / 2) * T) / (sigma * Math.sqrt(T));
+    var d2 = d1 - sigma * Math.sqrt(T);
+
+    return K * Math.exp(-r * T) * normCdf(-d2) - S * normCdf(-d1);
 }
 
 // Function to calculate Vega

@@ -10,5 +10,5 @@ excerpt: "You can find my latest articles below"
 
 {% include figure.html image="https://picsum.photos/300/300?image=43" caption="Real Estate" href = "/categories/#real-estate" width = "300" height = "300" position = "left" %}
 
-{% include figure.html image="/assets/Reddit.png" caption="Stock Market" href = "categories/#equity-market" width = "300" height = "300" position = "right" %}
+{% include figure.html image="https://picsum.photos/300/300?image=238" caption="Equity Market" href = "categories/#equity-market" width = "300" height = "300" position = "right" %}
 
