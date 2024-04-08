@@ -15,7 +15,7 @@ image: "https://picsum.photos/2560/600?image=733"
 
 ### Visions (to be gradually built)
 - User-friendly interface
-- Automated risk free rate calculation from SOFR
+- Automate risk free rate calculation 
 - Have dividends and American features
 - Calculate historical quantitle of IV
 - Build volatility smile (rustic version)

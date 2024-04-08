@@ -13,7 +13,10 @@ function calculateTimeToExpiration() {
 }
 
 
-function calculateIV() {
+function calculateIV(event) {
+    // Prevent the default form submission
+    event.preventDefault();
+    
     // Get values from form
     var optionType = document.getElementById('optionType').value;
     var optionPrice = parseFloat(document.getElementById('optionPrice').value);

@@ -1,33 +1,33 @@
 <!-- Options Implied Volatility Calculator -->
 
 <h3>Options Implied Volatility Calculator</h3>
-
+<div class="container form">
 <form id="ivCalculator">
-    <label for="optionType">Option Type:</label>
-    <select id="optionType">
-    <option value="call">Call</option>
-    <option value="put">Put</option>
-    </select>
+    <label for="optionType">Option Type:</label><br>
+    <select id="optionType" style="width: 50%; box-sizing: border-box;">
+      <option value="call">Call</option>
+      <option value="put">Put</option>
+    </select><br>
     
     <label for="optionPrice">Option Price:</label><br>
-    <input type="number" id="optionPrice" name="optionPrice"><br>
+    <input type="number" id="optionPrice" name="optionPrice" step = "any" style="width: 50%; box-sizing: border-box; margin-bottom: 20px;"><br>
 
     <label for="strikePrice">Strike Price:</label><br>
-    <input type="number" id="strikePrice" name="strikePrice"><br>
+    <input type="number" id="strikePrice" name="strikePrice" style="width: 50%; box-sizing: border-box; margin-bottom: 20px;"><br>
 
     <label for="underlyingPrice">Underlying Asset Price:</label><br>
-    <input type="number" id="underlyingPrice" name="underlyingPrice"><br>
+    <input type="number" id="underlyingPrice" name="underlyingPrice" style="width: 50%; box-sizing: border-box; margin-bottom: 20px;"><br>
 
     <label for="expirationDate">Expiration Date:</label><br>
-    <input type="date" id="expirationDate" name="expirationDate"><br>
+    <input type="date" id="expirationDate" name="expirationDate" style="width: 50%; box-sizing: border-box; margin-bottom: 20px;"><br>
 
     <label for="riskFreeRate">Risk-Free Rate (annualized):</label><br>
-    <input type="number" id="riskFreeRate" name="riskFreeRate" step="any"><br>
-
-    <input type="button" value="Calculate IV" onclick="calculateIV()">
+    <input type="number" step ='0.001' id="riskFreeRate" name = "riskFreeRate" style="width: 50%; box-sizing: border-box; margin-bottom: 20px;"><br>
+  
+    <button onclick="calculateIV(event)" style="width: 30%; box-sizing: border-box;">Calculate IV</button>
 </form>
 
 <p id="result"></p>
-
+</div>
 <!-- Include your JavaScript at the end of the body where this file is included -->
 
