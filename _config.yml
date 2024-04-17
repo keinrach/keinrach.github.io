@@ -106,6 +106,9 @@ email: "people.of.the.haus@gmail.com"
 # service_worker: false # Will turn off the service worker if set to false
 # short_name: "Al" # The web application short name, defaults to the site title
 css_inline: true # Will insert all styles into a single <style> block in the <head> element and remove the style <link> reference
+comment-post: https://docs.google.com/forms/d/e/1FAIpQLSeJzw7F8CVF8kyU7H5UcFE3y0F0Kk8WjVr7wuewlj5g90icGA
+comment-read: https://docs.google.com/spreadsheets/d/1WFIx_rBXtBSYSYdwC7aNFBGkkAJYBTfTK9Qa7jLtJuk
+comment-post-fields: [ entry.147007886, entry.1808403076, entry.655930858]
 
 # 8. Site favicons & manifest icons
 favicons: # Favicons are also used in the manifest file. Syntax is 'size: path'
