@@ -13,7 +13,6 @@ While I am trying my best to have educated and informed views on those big quest
 
 I would be thrilled if you, my audience, find anything helpful on this site.      
 
--- Rachel
 
 ## Start Reading by Categories
 * [Real Estate](/categories/##real-estate)
