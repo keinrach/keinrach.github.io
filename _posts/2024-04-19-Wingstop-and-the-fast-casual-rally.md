@@ -37,7 +37,7 @@ But that’s for the short term. In the long term, the sustainability of WING’
 
 - A trend towards healthy and clean diet puts downward pressure on WING. Its potential and existing customer base is likely to shift towards Chipotle, Sweetgreen, Cava and other chains that position to serve healthier food. 
 
-- WING currently benefits from a historical low (wholesale price on chicken wings) [https://pos.toasttab.com/blog/on-the-line/chicken-wing-prices], a trend which may reverse in the future. 
+- WING currently benefits from a historical low [wholesale price on chicken wings](https://pos.toasttab.com/blog/on-the-line/chicken-wing-prices), a trend which may reverse in the future. 
 
 - Fast casual restaurants are perceived as defensive stocks that may perform well during market downturns. As investors have more uncertainties towards the overall economy, there may be more long interests in fast casual restaurants for hedging purposes. 
 
