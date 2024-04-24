@@ -39,10 +39,10 @@
       <input  type="email" id = "signInEmail" placeholder="Enter Email" name="email" required>
 
       <label class = "aria-label" for="signInPassword"><b>Password</b></label><br>
-      <input  type="text" id = "signInPassword" placeholder="Enter Password" name="psw" required><br>
+      <input  type="password" id = "signInPassword" placeholder="Enter Password" name="psw" required><br>
       
       <br>
-      <button type="submit">Sign In</button>
+      <button type="submit" name = "signInButton">Sign In</button>
       <button type="submit" onclick="openSignUpForm()">New User Sign Up</button>
       
     </div>
@@ -62,10 +62,10 @@
         <input type="email" id = "signUpEmail" placeholder="Enter Email" name="email" required>
 
         <label for="signUpPassword"><b>New Password</b></label>
-        <input type="text" id = "signUpPassword" placeholder="Enter New Password" name="psw" required><br>
+        <input type="password" id = "signUpPassword" placeholder="Enter New Password" name="psw" required><br>
 
         <label for="signUpConfirmPassword"><b>Confirm New Password</b></label><br>
-        <input type="text"  id = "signUpConfirmPassword" placeholder="Confirm New Password" name="psw-repeat" required><br>
+        <input type="password"  id = "signUpConfirmPassword" placeholder="Confirm New Password" name="psw-repeat" required><br>
 
         <button type="submit">Sign Up</button>
       </div>
@@ -112,11 +112,15 @@ var modal = document.getElementById("signInSignUpForm");
 var mod = document.getElementById("signUpForm");
 
 // Open Sign Up Form
-function openSignUpForm() {
+//function openSignUpForm() {
+  //modal.style.display = "none";
+  //mod.style.display = "block";
+//}
+
+window.openSignUpForm = function() {
   modal.style.display = "none";
   mod.style.display = "block";
 }
-
 // Close Sign Up Form
 function closeSignUpForm() {
   mod.style.display = "none";
@@ -124,37 +128,84 @@ function closeSignUpForm() {
 }
 
 // Function to display the modal
-function openForm() {
+window.openForm = function() {
   modal.style.display = "block";
 }
+
+//function openForm() {
+  //modal.style.display = "block";
+//}
 
 // Function to close the modal
 function closeForm() {
   modal.style.display = "none";
 }
+</script>
 
+<script>
 //login
 const loginForm = document.querySelector("#signInForm");
 if(loginForm){
   console.log("loginForm is not empty");
   loginForm.addEventListener('submit', (e) =>{
+
+    
+    e.preventDefault();
+    const submitButton = e.submitter;
+    if(submitButton.name === "signInButton"){
+      console.log("loginForm is being listened");
+      //get user info
+      const email = loginForm['signInEmail'].value;
+      console.log("login form has email", email);
+      const password = loginForm['signInPassword'].value;
+
+      auth.signInWithEmailAndPassword(email, password).then(cred => {
+          console.log(cred.user);
+          loginForm.reset();
+          loginForm.querySelector('.error').innerHTML = '';
+          location.replace("https://bokchoyinvest.com")
+      }).catch(err => {
+          loginForm.querySelector('.error').innerHTML = err.message;
+      });
+
+      } 
+  });
+}
+
+
+
+</script>
+
+<script>
+  // signup
+const usersignupForm = document.querySelector("#newUserSignUpForm");
+if(usersignupForm) {
+  console.log("usersignUpForm is not empty");
+  
+  usersignupForm.addEventListener('submit', (e) =>{
+    console.log("usersignupForm is being listened")
     e.preventDefault();
     
-    //get user info
-    const email = loginForm['signInEmail'].value;
-    console.log("login form has email", email);
-    const password = loginForm['signInPassword'].value;
+    // get user info
+    const email = usersignupForm['signUpEmail'].value;
+    const password = usersignupForm['signUpPassword'].value;
+    const confirmPassword = usersignupForm['signUpConfirmPassword'].value;
 
-    auth.signInWithEmailAndPassword(email, password).then(cred => {
-        console.log(cred.user);
-        loginForm.reset();
-        loginForm.querySelector('.error').innerHTML = '';
+    // sign up the user
+    auth.createUserWithEmailAndPassword(email, password).then(cred => {
+      var user = cred.user;
+      console.log("User signed up:", user);
+    }).then(() => {
+        // const modal = document.querySelector('#modal-signup');
+        // M.Modal.getInstance(modal).close();
         location.replace("https://bokchoyinvest.com")
+        usersignupForm.reset();
+        usersignupForm.querySelector('.error').innerHTML = 'Successfully created your account, please log-in.';
     }).catch(err => {
-        loginForm.querySelector('.error').innerHTML = err.message;
+        usersignupForm.querySelector('.error').innerHTML = err.message;
     });
-});
+  });
 }
-  
+
 
 </script>
