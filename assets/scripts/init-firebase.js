@@ -44,18 +44,20 @@ if(signupForm) {
 //login
 const loginForm = document.querySelector("#signInForm");
 if(loginForm){
+  console.log("loginForm is not empty");
   loginForm.addEventListener('submit', (e) =>{
     e.preventDefault();
     
     //get user info
     const email = loginForm['signInEmail'].value;
+    console.log("login form has email", email);
     const password = loginForm['signInPassword'].value;
 
     auth.signInWithEmailAndPassword(email, password).then(cred => {
         console.log(cred.user);
         loginForm.reset();
         loginForm.querySelector('.error').innerHTML = '';
-        //location.replace("/")
+        location.replace("https://bokchoyinvest.com")
     }).catch(err => {
         loginForm.querySelector('.error').innerHTML = err.message;
     });
