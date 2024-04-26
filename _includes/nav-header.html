@@ -10,13 +10,26 @@
       {% endif %}
 
       <li class="item  item--nav{% if item.url == page.url %}  item--current{% endif %}">
-        {% if item.onclick %}
-          <a href="#" onclick="{{ item.onclick }}">{{ item.title }}</a>
-        {% else %}
-          <a href="{{ url }}">{{ item.title }}</a>
-        {% endif %}
+        
+        <a href="{{ url }}">{{ item.title }}</a>
+        
       </li>
     {% endfor %}
+
+    <div class = "logged-in">
+      <li class="item  item--nav{% if item.url == page.url %}  item--current{% endif %}">
+        <a href="/profile" id = "user-profile">My Account</a>
+        <a href="#" onclick = "logOut()">Log Out</a>
+      </li>
+    </div>
+    <div class = "logged-out">
+      <li class="item  item--nav{% if item.url == page.url %}  item--current{% endif %}">
+        <a href="#" onclick = "openForm()">Sign In</a>
+      </li>
+    </div>
+    
+      
+    
      
 
   </ul>
@@ -57,7 +70,7 @@
     <h1 style = "text-align: center;">New User Sign Up</h1>
     <form id = "newUserSignUpForm">
       <div class="modal-container">
-        
+
         <label for="signUpEmail"><b>Email</b></label>
         <input type="email" id = "signUpEmail" placeholder="Enter Email" name="email" required>
 
@@ -140,7 +153,26 @@ window.openForm = function() {
 function closeForm() {
   modal.style.display = "none";
 }
+
+window.logOut = function() {
+      event.preventDefault(); // Prevent the default link behavior
+      
+      // Sign out the user from Firebase
+      auth.signOut().then(() => {
+        console.log(email, 'This user has signed out');
+        
+        // Redirect the user to the main page
+        window.location.href = '/';
+      }).catch((error) => {
+        console.error('Error signing out:', error);
+      });
+    };
+
+
 </script>
+
+
+
 
 <script>
 //login
@@ -163,7 +195,7 @@ if(loginForm){
           console.log(cred.user);
           loginForm.reset();
           loginForm.querySelector('.error').innerHTML = '';
-          location.replace("https://bokchoyinvest.com")
+          location.replace("/")
       }).catch(err => {
           loginForm.querySelector('.error').innerHTML = err.message;
       });
@@ -187,6 +219,7 @@ if(usersignupForm) {
     e.preventDefault();
     
     // get user info
+    
     const email = usersignupForm['signUpEmail'].value;
     const password = usersignupForm['signUpPassword'].value;
     const confirmPassword = usersignupForm['signUpConfirmPassword'].value;
@@ -208,4 +241,34 @@ if(usersignupForm) {
 }
 
 
+</script>
+
+<script>
+  const authLink = document.getElementById('auth-link');
+  auth.onAuthStateChanged((user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/v8/firebase.User
+    var uid = user.uid;
+    var email = user.email;
+    console.log("Signed-in user has email: ", email);
+    setupUI(user);
+  } else {
+    setupUI();
+  }
+});
+</script>
+
+<script>
+  const loggedInLinks  = document.querySelectorAll('.logged-in');
+  const loggedOutLinks = document.querySelectorAll('.logged-out');
+  const setupUI = (user) => {
+    if (user) {
+      loggedInLinks.forEach(item => item.style.display = 'inline');
+      loggedOutLinks.forEach(item => item.style.display = 'none');
+    } else {
+      loggedInLinks.forEach(item => item.style.display = 'none');
+      loggedOutLinks.forEach(item => item.style.display = 'inline');
+    }
+  }
 </script>

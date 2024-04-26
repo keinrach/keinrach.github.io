@@ -133,9 +133,7 @@ navigation_header:
   url: /search/
 - title: About
   url: /about/
-- title: Sign In
-  url: "#"
-  onclick: "openForm()"
+
 
 
 navigation_footer:
