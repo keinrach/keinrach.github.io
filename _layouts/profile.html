@@ -1,0 +1,136 @@
+---
+layout: default
+---
+
+{% include site-header.html %}
+
+<main class="main  container">
+
+  <article class="article  article--page  content  typeset">
+
+    <h1 id = "profile-username">Welcome! </h1>
+    <button style = "background:#aaaaaa" type="button" name = "profileEditButton" onclick = "openProfileForm()">
+        <span>Edit profile</span>
+    </button>
+    <h6 id = "profile-bio">Bio: No bio yet</h6><br>
+    <div>
+        <span>My Work</span>
+    </div>
+    <div class="divider"></div>
+
+    {{ content }}
+
+  </article>
+
+  {% if page.aside == true %}{% include site-aside.html %}{% endif %}
+
+</main>
+
+{% include site-footer.html %}
+
+<!-- Edit User Profile Modal -->
+<div id="profileEditForm" class="modal">
+    <form class="modal-content" id = "profileForm" novalidate>
+      <div class="modal-container">
+        <span class="modal-close" onclick="closeForm()">&times;</span>
+        <h1 style = "text-align: center;">Edit profile</h1><br>
+        
+        <label class = "aria-label" for="username"><b>Username</b></label>
+        <input  type="text" id = "username" placeholder="Pick A Username" name="username">
+  
+        <label class = "aria-label" for="profileEmail"><b>Email</b></label><br>
+        <input  type="email" id = "profileEmail" placeholder="Email" name="profileEmail" ><br>
+        
+        <label class = "aria-label" for="profileBio"><b>Bio</b></label><br>
+        <input  type="text" id = "profileBio" placeholder="No bio yet" name="profileBio" ><br>
+        <br>
+        
+        <button type="submit" id = "saveButton">Update</button>
+        
+      </div>
+      <p class='error'></p>
+    </form>
+  </div>
+<script>
+     // Get the modal
+var modal = document.getElementById("profileEditForm");
+
+
+
+window.openProfileForm = function() {
+  modal.style.display = "block";
+  
+}
+
+function closeForm() {
+    modal.style.display = "none";
+}
+
+function updateUsername() {
+  var newUsername = document.getElementById("username").value;
+  var newbio = document.getElementById("profileBio").value;
+  var userId = firebase.auth().currentUser.uid; // Get the current user's ID
+
+  // Reference to the user's document in Firestore
+  var userDocRef = db.collection("users").doc(userId);
+
+  // Update the username field in the document
+  userDocRef.set({
+    username: newUsername,
+    bio: newbio
+  })
+  .then(function() {
+    console.log("profile data successfully updated!");
+    // Optionally, you can update the displayed username immediately after updating it in Firestore
+    document.getElementById("profile-username").innerText = 'Welcome! ' + newUsername;
+    document.getElementById("profile-bio").innerText = "Bio: " + newbio;
+  })
+  .catch(function(error) {
+    console.error("Error updating username: ", error);
+  });
+}
+
+// Add event listener to the "Save" button
+document.getElementById("saveButton").addEventListener("click", function(event) {
+  event.preventDefault(); // Prevent form submission (if button is inside a form)
+  updateUsername(); // Call the function to update the username
+  closeForm(); // Close the form after updating username
+});
+
+</script>
+<script>
+  // Fetch user data from Firestore and display it
+  // Example using Firestore and JavaScript
+  auth.onAuthStateChanged(function(user) {
+    if (user) {
+      var userId = user.uid;
+      
+      var docRef = db.collection("users").doc(userId);
+      document.getElementById("profileEmail").value = user.email;
+
+      docRef.get().then(function(doc) {
+        if (doc.exists) {
+          var data = doc.data();
+          console.log(data);
+          username = data['username'];
+          if(username){
+            document.getElementById("profile-username").innerText = 'Welcome! ' + username;
+            document.getElementById("username").value = username;
+            
+          }
+          if(data['bio']){
+            document.getElementById("profileBio").value = data['bio'];
+            document.getElementById("profile-bio").innerText = "Bio: " + data['bio'];
+          }
+          
+        } else {
+          console.log("No such document!");
+        }
+      }).catch(function(error) {
+        console.log("Error getting document:", error);
+      });
+    } else {
+
+    }
+  });
+</script>

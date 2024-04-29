@@ -14,6 +14,21 @@ body {
   margin: 0 auto;
 }
 
+
+
+.divider {
+  width: 100%; /* Ensure the divider spans the full width of its container */
+  height: 2px; /* Set the height of the divider */
+  background-color: rgba(0, 0, 0, 0.3); /* Set the color and opacity of the divider */
+  margin: 5px 0; /* Adjust the top and bottom margin to create spacing */
+}
+
+.upload-box {
+  background-color: transparent;
+  border: 2px solid #aaaaaa; /* Light grey border */
+  padding: 5px; /* Adjust padding as needed */
+  width: fit-content;
+}
 //newly added by gpt
 // Sign In/Sign Up Modal
 .modal {
@@ -179,7 +194,7 @@ body {
 
 .content {
   @include breakpoint(break-1) {
-    width: 62%;
+    width: 80%; //62% is the original one
   }
 }
 
@@ -189,7 +204,7 @@ body {
 
 .aside {
   @include breakpoint(break-1) {
-    max-width: 34%;
+    max-width: 100%;
     margin-left: 4%;
     @include flex(1, 0, auto);
     opacity: 0.5;
