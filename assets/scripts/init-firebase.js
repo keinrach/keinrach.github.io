@@ -12,6 +12,7 @@
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
+const storage = firebase.storage();
 //auth.useEmulator("http://127.0.0.1:9099");
 
 

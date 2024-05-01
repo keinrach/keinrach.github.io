@@ -7,14 +7,25 @@ layout: default
 <main class="main  container">
 
   <article class="article  article--page  content  typeset">
-
-    <h1 id = "profile-username">Welcome! </h1>
-    <button style = "background:#aaaaaa" type="button" name = "profileEditButton" onclick = "openProfileForm()">
-        <span>Edit profile</span>
-    </button>
-    <h6 id = "profile-bio">Bio: No bio yet</h6><br>
+    <div style="display: flex; align-items: center;">
+      
+      <img id="profile-image" src="" alt="Profile Image" style="width: 120px; height: 120px; border-radius: 50%; border: 3px solid #aaaaaa;">
+      
+    
+      <div style="margin-left: 20px;"> <!-- Adjust margin as needed -->
+          <h1 id="profile-username">Welcome!</h1>
+          <button style="background:#aaaaaa" type="button" name="profileEditButton" onclick="openProfileForm()">
+              <span>Edit profile</span>
+          </button>
+          <h6 id="profile-bio">Bio: No bio yet</h6>
+      </div>
+    </div>
+    
+    <br>
+    
     <div>
-        <span>My Work</span>
+        <span>My Work </span>
+        <img src="/assets/addicon.svg" alt="Add Icon" id="addIcon" style = "width:25px; cursor: pointer;">
     </div>
     <div class="divider"></div>
 
@@ -28,21 +39,28 @@ layout: default
 
 {% include site-footer.html %}
 
+
 <!-- Edit User Profile Modal -->
 <div id="profileEditForm" class="modal">
     <form class="modal-content" id = "profileForm" novalidate>
       <div class="modal-container">
         <span class="modal-close" onclick="closeForm()">&times;</span>
         <h1 style = "text-align: center;">Edit profile</h1><br>
-        
+        <!-- Profile Picture -->
+        <div id="profilePictureContainer" style="position: relative; display: flex; align-items: center;">
+          <img id="profilePicture" src="" alt="Profile Picture" style="width: 120px; height: 120px; border-radius: 50%; border: 3px solid #aaaaaa;">
+          <label for="profilePictureInput" id="editProfilePictureLabel" style="margin-left: auto; background-color: #ffffff; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Click to Upload</label>
+          <input type="file" id="profilePictureInput" accept="image/*" style="display: none;">
+        </div>
+               
         <label class = "aria-label" for="username"><b>Username</b></label>
         <input  type="text" id = "username" placeholder="Pick A Username" name="username">
-  
+        
         <label class = "aria-label" for="profileEmail"><b>Email</b></label><br>
         <input  type="email" id = "profileEmail" placeholder="Email" name="profileEmail" ><br>
         
         <label class = "aria-label" for="profileBio"><b>Bio</b></label><br>
-        <input  type="text" id = "profileBio" placeholder="No bio yet" name="profileBio" ><br>
+        <textarea id = "profileBio" placeholder="No bio yet" name="profileBio" maxlength="200"></textarea><br>
         <br>
         
         <button type="submit" id = "saveButton">Update</button>
@@ -50,9 +68,122 @@ layout: default
       </div>
       <p class='error'></p>
     </form>
-  </div>
+</div>
+<div id="uploadModal" class="modal">
+  <main class="main container">
+    <div class="modal-content-upload">
+      <span class="modal-close" onclick="closeModalUpload()">&times;</span>
+
+      <div class="upload-section">
+        <img src="/assets/photo upload.svg" alt="Photo Upload Icon" id="photoUploadIcon" style="width: 150px; cursor: pointer;">
+        <input type="file" id="image-upload" accept="image/*"><br>
+        <input type="text" id="title" placeholder="Title">
+        <hr class="divider">
+        <textarea id="content" placeholder="Content" maxlength="500"></textarea>
+      </div>
+
+      <div class="referral-section">
+        <h1>Referral Links</h1>
+        <input type="text" id="referral-link" placeholder="Referral Link">
+      </div>
+      <button id="post-btn">Post</button>
+    </div>
+  </main>
+</div>
+
+
 <script>
-     // Get the modal
+  // Get the modal
+  var modalUpload = document.getElementById("uploadModal");
+
+  // Get the add icon element
+  var addIcon = document.getElementById("addIcon");
+
+  // Get the <span> element that closes the modal
+  var closeBtn = document.querySelector("#uploadModal .close");
+
+  // Function to open the modal
+  function openModalUpload() {
+      modalUpload.style.display = "block";
+  }
+
+  // Function to close the modal
+  function closeModalUpload() {
+      modalUpload.style.display = "none";
+  }
+
+  // Event listener for clicking the add icon
+  addIcon.addEventListener("click", openModalUpload);
+
+  // Event listener for clicking the close button
+  //closeBtn.addEventListener("click", closeModalUpload);
+
+  // Event listener for clicking outside the modal to close it
+  window.addEventListener("click", function(event) {
+      if (event.target == modalUpload) {
+          closeModalUpload();
+      }
+  });
+
+  // Optionally, you can handle the form submission here using AJAX
+</script>
+<script>
+
+
+let userId;
+
+auth.onAuthStateChanged(function(user) {
+    if (user) {
+      userId = user.uid;
+      
+      var docRef = db.collection("users").doc(userId);
+      document.getElementById("profileEmail").value = user.email;
+
+      var profileImageRef = storageRef.child("profilePictures/" + userId);
+
+      profileImageRef.getDownloadURL().then(function(url) {
+      // Set the image URL as the source of the profile image
+        console.log("loaded image url" + url);
+        document.getElementById('profile-image').src = url;
+        document.getElementById('profilePicture').src = url;
+      }).catch(function(error) {
+      // Handle any errors
+      
+        document.getElementById('profile-image').src = '/assets/logos/Group 2.png';
+        document.getElementById('profilePicture').src = '/assets/logos/Group 2.png';
+      
+        console.error('Error getting profile image URL: ', error);
+      
+      
+      });
+
+      docRef.get().then(function(doc) {
+        if (doc.exists) {
+          var data = doc.data();
+          console.log(data);
+          username = data['username'];
+          if(username){
+            document.getElementById("profile-username").innerText = 'Welcome! ' + username;
+            document.getElementById("username").value = username;
+            
+          }
+          if(data['bio']){
+            document.getElementById("profileBio").value = data['bio'];
+            document.getElementById("profile-bio").innerText = "Bio: " + data['bio'];
+          }
+          
+        } else {
+          console.log("No such document!");
+        }
+      }).catch(function(error) {
+        console.log("Error getting document:", error);
+      });
+    } else {
+
+    }
+  });
+
+// Get the modal
 var modal = document.getElementById("profileEditForm");
 
 
@@ -69,7 +200,7 @@ function closeForm() {
 function updateUsername() {
   var newUsername = document.getElementById("username").value;
   var newbio = document.getElementById("profileBio").value;
-  var userId = firebase.auth().currentUser.uid; // Get the current user's ID
+  userId = firebase.auth().currentUser.uid; // Get the current user's ID
 
   // Reference to the user's document in Firestore
   var userDocRef = db.collection("users").doc(userId);
@@ -97,40 +228,49 @@ document.getElementById("saveButton").addEventListener("click", function(event) 
   closeForm(); // Close the form after updating username
 });
 
-</script>
-<script>
+var storageRef = storage.ref();
+//var defaultRef = storageRef.child('default');
+// Create a reference to the profile image
+
+
+
+  
+
+
+
+
+// Reference to the profile picture image element
+var profilePicture = document.getElementById("profilePicture");
+// Reference to the profile picture input element
+var profilePictureInput = document.getElementById("profilePictureInput");
+// Function to update profile picture when a new one is selected
+profilePictureInput.addEventListener("change", function (event) {
+    var file = event.target.files[0];
+
+    // Create a storage reference from our storage service
+   
+
+    // Create a reference to the user's profile picture in Firebase Storage
+    var profilePictureRef = storageRef.child("profilePictures/" + userId);
+
+    // Upload the file to Firebase Storage
+    profilePictureRef.put(file).then(function (snapshot) {
+        console.log("Uploaded a file!" + file.name);
+
+        // Get the download URL of the uploaded file
+        profilePictureRef.getDownloadURL().then(function (url) {
+            // Set the profile picture image source to the download URL
+            profilePicture.src = url;
+            document.getElementById('profile-image').src = url;
+        }).catch(function (error) {
+            console.error("Error getting download URL:", error);
+        });
+    });
+});
+
+
   // Fetch user data from Firestore and display it
   // Example using Firestore and JavaScript
-  auth.onAuthStateChanged(function(user) {
-    if (user) {
-      var userId = user.uid;
-      
-      var docRef = db.collection("users").doc(userId);
-      document.getElementById("profileEmail").value = user.email;
-
-      docRef.get().then(function(doc) {
-        if (doc.exists) {
-          var data = doc.data();
-          console.log(data);
-          username = data['username'];
-          if(username){
-            document.getElementById("profile-username").innerText = 'Welcome! ' + username;
-            document.getElementById("username").value = username;
-            
-          }
-          if(data['bio']){
-            document.getElementById("profileBio").value = data['bio'];
-            document.getElementById("profile-bio").innerText = "Bio: " + data['bio'];
-          }
-          
-        } else {
-          console.log("No such document!");
-        }
-      }).catch(function(error) {
-        console.log("Error getting document:", error);
-      });
-    } else {
-
-    }
-  });
+ 
 </script>
+

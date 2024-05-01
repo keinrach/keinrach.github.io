@@ -6,5 +6,5 @@ aside: true
 
 ---
 
-Post your first DIY work!
+Post your first work!
 Your work will appear here
