@@ -1,6 +1,9 @@
 ---
 layout: default
 ---
+<script src="/assets/scripts/auth.js"></script>
+
+
 
 {% include site-header.html %}
 
@@ -75,24 +78,34 @@ layout: default
       <span class="modal-close" onclick="closeModalUpload()">&times;</span>
 
       <div class="upload-section">
-        <img src="/assets/photo upload.svg" alt="Photo Upload Icon" id="photoUploadIcon" style="width: 150px; cursor: pointer;">
-        <input type="file" id="image-upload" accept="image/*"><br>
-        <input type="text" id="title" placeholder="Title">
+        
+        <label for="fileInput">
+          <img src="/assets/photo upload.svg" alt="Photo Upload Icon" id="photoUploadIcon" style="width: 150px; cursor: pointer;">
+        </label>
+        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+      
+
+        <input type="text" id="postTitle" placeholder="Title">
         <hr class="divider">
-        <textarea id="content" placeholder="Content" maxlength="500"></textarea>
+        <textarea id="postContent" placeholder="Content" maxlength="500"></textarea>
       </div>
 
       <div class="referral-section">
         <h1>Referral Links</h1>
         <input type="text" id="referral-link" placeholder="Referral Link">
       </div>
-      <button id="post-btn">Post</button>
+      <button id="post-btn" >Post</button>
     </div>
   </main>
 </div>
 
 
+<script src = "/assets/scripts/handle-post.js"></script>
 <script>
+  
+
+
+
   // Get the modal
   var modalUpload = document.getElementById("uploadModal");
 
@@ -127,62 +140,11 @@ layout: default
 
   // Optionally, you can handle the form submission here using AJAX
 </script>
+
+
+
+
 <script>
-
-
-let userId;
-
-auth.onAuthStateChanged(function(user) {
-    if (user) {
-      userId = user.uid;
-      
-      var docRef = db.collection("users").doc(userId);
-      document.getElementById("profileEmail").value = user.email;
-
-      var profileImageRef = storageRef.child("profilePictures/" + userId);
-
-      profileImageRef.getDownloadURL().then(function(url) {
-      // Set the image URL as the source of the profile image
-        console.log("loaded image url" + url);
-        document.getElementById('profile-image').src = url;
-        document.getElementById('profilePicture').src = url;
-      }).catch(function(error) {
-      // Handle any errors
-      
-        document.getElementById('profile-image').src = '/assets/logos/Group 2.png';
-        document.getElementById('profilePicture').src = '/assets/logos/Group 2.png';
-      
-        console.error('Error getting profile image URL: ', error);
-      
-      
-      });
-
-      docRef.get().then(function(doc) {
-        if (doc.exists) {
-          var data = doc.data();
-          console.log(data);
-          username = data['username'];
-          if(username){
-            document.getElementById("profile-username").innerText = 'Welcome! ' + username;
-            document.getElementById("username").value = username;
-            
-          }
-          if(data['bio']){
-            document.getElementById("profileBio").value = data['bio'];
-            document.getElementById("profile-bio").innerText = "Bio: " + data['bio'];
-          }
-          
-        } else {
-          console.log("No such document!");
-        }
-      }).catch(function(error) {
-        console.log("Error getting document:", error);
-      });
-    } else {
-
-    }
-  });
-
 // Get the modal
 var modal = document.getElementById("profileEditForm");
 
