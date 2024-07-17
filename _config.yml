@@ -98,7 +98,7 @@ description: "Please feel free to comment on the articles and suggest cool featu
 url: "www.bokchoyinvest.com" # Site url, also used in jekyll-seo-tag
 baseurl: ""
 repo: ""
-email: "people.of.the.haus@gmail.com"
+email: "@gmail.com"
 # disqus: "alembic-1" # Blog post comments, uncomment the option and set the site ID from your Disqus account
 # date_format: "%-d %B %Y" # Blog post date formatting using placeholder formatting
 # google_analytics: ""
@@ -140,7 +140,7 @@ navigation_footer:
 - title: Stay Connected!
 
 social_links: # Appears in sidebar. Set the urls then uncomment and comment out as desired
-  LinkedIn: https://www.linkedin.com/in/rachelyueqiwu/
+  LinkedIn: https://www.linkedin.com/in/
 
 sharing_links: # Appear at the bottom of single blog posts, add as desired. The value can be 'true' or the desired button colour
   Twitter: "#0d94e7"
